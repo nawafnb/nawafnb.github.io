@@ -71,10 +71,10 @@
 
             document.getElementById('form').addEventListener('submit', function(event) {
                 event.preventDefault();
-                let input = document.querySelector('input[name="user_input"]').value;
                 let correctAnswer = 'xss';
+                let input = document.querySelector('input[name="user_input"]').value;
                 let attempts = parseInt(localStorage.getItem('attempts'));
-
+                let corrcetAnswer = 'GJFKUFKTFHGTRUIRGJHGTTD6YGH';
                 if (input === correctAnswer) {
                     alert('Correct!');
                     localStorage.setItem('attempts', '3'); // Reset attempts for next game
