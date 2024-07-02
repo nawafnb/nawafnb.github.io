@@ -17,7 +17,6 @@
         }
         .content {
             text-align: center;
-            display: none;
         }
         h1 {
             font-size: 4rem;
@@ -51,10 +50,6 @@
             document.querySelector('.input-section').style.display = 'block';
         }
 
-        function submitForm() {
-            document.getElementById('form').submit();
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 document.querySelector('.content').style.display = 'block';
@@ -69,7 +64,7 @@
         <div class="input-section">
             <form id="form" method="post" action="">
                 <input type="text" name="user_input" required>
-                <button type="button" onclick="submitForm()">Submit</button>
+                <button type="submit">Submit</button>
             </form>
         </div>
     </div>
@@ -85,13 +80,14 @@
         
         if ($input === $correct_answer) {
             echo "<script>alert('Correct!');</script>";
+            $_SESSION['attempts'] = 3; // Reset attempts for next game
         } else {
             $_SESSION['attempts'] -= 1;
             if ($_SESSION['attempts'] > 0) {
                 echo "<script>alert('Incorrect! You have {$_SESSION['attempts']} attempts left.');</script>";
             } else {
                 echo "<script>alert('No more attempts left!');</script>";
-                $_SESSION['attempts'] = 3; // Reset attempts for simplicity
+                $_SESSION['attempts'] = 3; // Reset attempts for next game
             }
         }
     }
