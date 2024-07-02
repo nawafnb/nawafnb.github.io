@@ -26,7 +26,7 @@
         .input-section {
             display: none;
         }
-        input[type="password"] {
+        input[type="text"] {
             padding: 10px;
             font-size: 1rem;
         }
@@ -45,21 +45,12 @@
             }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/devtools-detect@0.1.8"></script>
     <script>
         function showInputSection() {
             document.querySelector('.input-section').style.display = 'block';
         }
 
-        function closeIfDevToolsOpen() {
-            if (window.devtools.isOpen) {
-                window.close();
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
-            closeIfDevToolsOpen();
-
             setTimeout(function() {
                 document.querySelector('.content').style.display = 'block';
                 setTimeout(showInputSection, 3000);
@@ -71,13 +62,15 @@
 
             document.getElementById('form').addEventListener('submit', function(event) {
                 event.preventDefault();
-                let correctAnswer = 'xss';
                 let input = document.querySelector('input[name="user_input"]').value;
+                let hiddenAnswer = 'eHNz'; // Good Job lol
                 let attempts = parseInt(localStorage.getItem('attempts'));
-                let corrcetAnswer = 'GJFKUFKTFHGTRUIRGJHGTTD6YGH';
-                if (input === correctAnswer) {
+
+                let answer = atob(hiddenAnswer);
+
+                if (input === answer) {
                     alert('Correct!');
-                    localStorage.setItem('attempts', '3'); // Reset attempts for next game
+                    localStorage.setItem('attempts', '3'); 
                 } else {
                     attempts -= 1;
                     if (attempts > 0) {
@@ -85,17 +78,15 @@
                         localStorage.setItem('attempts', attempts.toString());
                     } else {
                         alert('No more attempts left!');
-                        localStorage.setItem('attempts', '3'); // Reset attempts for next game
+                        localStorage.setItem('attempts', '3'); 
                     }
                 }
             });
 
-            // Disable right-click context menu
             document.addEventListener('contextmenu', function(event) {
                 event.preventDefault();
             });
 
-            // Disable F12 key and other key combinations
             document.addEventListener('keydown', function(event) {
                 if (event.key === 'F12' || 
                     (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'J')) || 
@@ -104,13 +95,6 @@
                 }
             });
         });
-
-        // Check if devtools are opened or closed
-        window.addEventListener('devtoolschange', function (event) {
-            if (event.detail.isOpen) {
-                window.close();
-            }
-        });
     </script>
 </head>
 <body>
@@ -118,7 +102,7 @@
         <h1>Challenge One</h1>
         <div class="input-section">
             <form id="form">
-                <input type="password" name="user_input" required>
+                <input type="text" name="user_input" required>
                 <button type="submit">Submit</button>
             </form>
         </div>
