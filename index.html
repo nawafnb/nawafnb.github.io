@@ -44,6 +44,9 @@
                 opacity: 1;
             }
         }
+        .hidden-php {
+            display: none;
+        }
     </style>
     <script>
         function showInputSection() {
@@ -71,6 +74,7 @@
                 if (input === answer) {
                     alert('Correct!');
                     localStorage.setItem('attempts', '3'); 
+                    document.querySelector('.hidden-php').style.display = 'block'; // Show hidden PHP content
                 } else {
                     attempts -= 1;
                     if (attempts > 0) {
@@ -78,6 +82,7 @@
                         localStorage.setItem('attempts', attempts.toString());
                     } else {
                         alert('No more attempts left!');
+                        document.querySelector('button').style.display = 'none'; // Hide the submit button
                         localStorage.setItem('attempts', '3'); 
                     }
                 }
@@ -106,6 +111,11 @@
                 <button type="submit">Submit</button>
             </form>
         </div>
+    </div>
+    <div class="hidden-php">
+        &lt;php&gt; <br>
+        <!-- PHP code that you want to reveal -->
+        &lt;/php&gt;
     </div>
 </body>
 </html>
